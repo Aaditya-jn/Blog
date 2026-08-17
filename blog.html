@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="All writing by Aaditya Jain — essays on engineering, design, AI, and building." />
+  <title>Writing — AJ Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">AJ<span style="color:var(--accent);">.</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Writing</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Page Header ────────────────────────────────────────────────── -->
+<div class="container">
+  <div style="padding: 64px 0 0; border-bottom: 4px solid #000; display:grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items:end; padding-bottom:48px;">
+    <div>
+      <span class="section-number">01. Archive</span>
+      <h1 style="font-size:clamp(56px,8vw,112px);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:.87;">
+        All<br />
+        <span class="text-accent">Writing</span>
+      </h1>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:flex-end;">
+      <p style="font-size:15px;line-height:1.7;max-width:380px;margin-bottom:24px;">
+        Every essay in one place. Filter by topic or scroll through chronologically. Updated when inspiration demands.
+      </p>
+      <div class="label" id="post-count" style="color:var(--accent);">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Tag Filter ─────────────────────────────────────────────────── -->
+<div class="container" style="padding-left:0;padding-right:0;">
+  <div class="tag-filter" id="tag-filter"></div>
+</div>
+
+<!-- ── Posts Grid ─────────────────────────────────────────────────── -->
+<div class="container">
+  <div class="posts-grid" id="posts-grid" style="margin-top:0;border-top:none;"></div>
+</div>
+
+<div class="divider" style="margin-top:80px;"></div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-logo">AJ<span>.</span></div>
+        <p class="footer-desc">Essays on engineering, design, and building things that matter. Written by Aaditya Jain.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html">All Writing</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Topics</div>
+        <ul class="footer-links">
+          <li><a href="blog.html?tag=Engineering">Engineering</a></li>
+          <li><a href="blog.html?tag=Design">Design</a></li>
+          <li><a href="blog.html?tag=Mindset">Mindset</a></li>
+          <li><a href="blog.html?tag=AI">AI</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aaditya Jain</span>
+      <span>All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Handle URL tag param
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const tag = params.get('tag');
+  if (tag) {
+    setTimeout(() => {
+      const btn = document.querySelector(`.tag-btn[data-tag="${tag}"]`);
+      if (btn) btn.click();
+    }, 100);
+  }
+});
+</script>
+</body>
+</html>

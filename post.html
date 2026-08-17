@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Read an essay by Aaditya Jain." />
+  <title>Post — AJ Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">AJ<span style="color:var(--accent);">.</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Writing</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ─────────────────────────────────────────────────── -->
+<div style="border-bottom:2px solid #000;">
+  <div class="container">
+    <div style="padding:16px 0;display:flex;align-items:center;gap:16px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;">
+      <a href="index.html" style="opacity:.5;transition:opacity .15s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">Home</a>
+      <span style="opacity:.3;">—</span>
+      <a href="blog.html" style="opacity:.5;transition:opacity .15s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">Writing</a>
+      <span style="opacity:.3;">—</span>
+      <span class="text-accent">Essay</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Post + Sidebar ─────────────────────────────────────────────── -->
+<div class="container">
+  <div class="two-col" style="border-top:none;">
+    <!-- Main Content -->
+    <div style="padding: 0 64px 96px 0;">
+      <div id="post-container" class="fade-in"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar swiss-dots" style="background:var(--muted);border-top:none;">
+      <div class="sidebar-section" style="position:sticky;top:80px;">
+        <div class="sidebar-title">More Writing</div>
+        <div id="related-posts" style="display:flex;flex-direction:column;gap:0;"></div>
+        <a href="blog.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:24px;">View All →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar post override styles -->
+<style>
+  #related-posts .post-card {
+    border-left: 4px solid #000;
+    border-right: none;
+    border-bottom: 2px solid #000;
+    border-top: none;
+  }
+  #related-posts .post-card:first-child { border-top: 2px solid #000; }
+  .post-card-title { font-size: 14px !important; }
+  .post-card-excerpt { display: none; }
+  @media (max-width:1024px) {
+    .two-col > div:first-child { padding-right: 0 !important; }
+  }
+</style>
+
+<div class="divider"></div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-logo">AJ<span>.</span></div>
+        <p class="footer-desc">Essays on engineering, design, and building things that matter. Written by Aaditya Jain.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html">All Writing</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Topics</div>
+        <ul class="footer-links">
+          <li><a href="blog.html?tag=Engineering">Engineering</a></li>
+          <li><a href="blog.html?tag=Design">Design</a></li>
+          <li><a href="blog.html?tag=Mindset">Mindset</a></li>
+          <li><a href="blog.html?tag=AI">AI</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aaditya Jain</span>
+      <span>All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

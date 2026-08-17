@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aaditya Jain's personal blog — essays on engineering, design, and building things that matter." />
+  <title>AJ — Aaditya Jain's Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E"); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">AJ<span style="color:var(--accent);">.</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Writing</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────── -->
+<div class="container">
+  <section class="hero">
+    <div class="hero-left">
+      <div>
+        <span class="section-number">01. Journal</span>
+        <h1 class="hero-display">
+          Ideas<br />
+          Worth<br />
+          <span class="accent">Writing.</span>
+        </h1>
+        <p class="hero-sub">
+          Essays on engineering, design, building in public, and thinking clearly. Written by Aaditya Jain — builder, reader, occasional over-thinker.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span id="post-stat">6</span>
+          Essays
+        </div>
+        <div class="hero-meta-item">
+          <span>2026</span>
+          Started
+        </div>
+        <div class="hero-meta-item">
+          <span>5+</span>
+          Topics
+        </div>
+      </div>
+    </div>
+    <div class="hero-right swiss-grid-pattern">
+      <div class="hero-composition">
+        <div class="comp-text">WRITE</div>
+        <div class="comp-block-1"></div>
+        <div class="comp-block-2"></div>
+        <div class="comp-block-3"></div>
+        <div class="comp-circle"></div>
+        <!-- Red accent line -->
+        <div style="position:absolute;width:4px;height:160px;background:var(--accent);bottom:20%;left:40%;"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Featured Post ─────────────────────────────────────────────── -->
+<section style="padding: 80px 0 0;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid #000;">
+      <span class="section-number" style="margin-bottom:0;">02. Featured</span>
+      <a href="blog.html" class="btn btn-secondary" style="height:40px;font-size:11px;">All Posts →</a>
+    </div>
+    <div id="featured-post"></div>
+  </div>
+</section>
+
+<!-- ── Recent Posts ───────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-number">03. Recent</span>
+        <h2 class="section-title">Latest<br/><span class="text-accent">Writing</span></h2>
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <p style="font-size:15px;line-height:1.6;max-width:340px;">A selection of recent essays. I write about things I am actively thinking through — no guaranteed schedule, just genuine interest.</p>
+      </div>
+    </div>
+    <div class="divider-thin" style="margin-bottom:0;"></div>
+    <div class="posts-grid" id="recent-posts"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── About Strip ────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="about-strip">
+      <div class="swiss-dots">
+        <span class="section-number">04. Author</span>
+        <div style="font-size:clamp(40px,5vw,64px);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:.9;margin-bottom:24px;">
+          Aaditya<br/><span class="text-accent">Jain</span>
+        </div>
+        <a href="about.html" class="btn btn-secondary" style="margin-top:8px;">About Me →</a>
+      </div>
+      <div>
+        <p style="font-size:18px;line-height:1.75;margin-bottom:24px;font-weight:400;">
+          I am a builder interested in the intersection of engineering rigour and design clarity. I write to think — and occasionally to share the results.
+        </p>
+        <p style="font-size:15px;line-height:1.6;opacity:.7;font-weight:400;">
+          These essays are not tutorials. They are attempts to work through ideas at the level of principle, not implementation. If you are looking for a step-by-step guide to something, you will probably not find it here. If you are looking for a perspective worth arguing with, you might.
+        </p>
+        <div style="margin-top:40px;padding-top:32px;border-top:2px solid #000;display:flex;gap:32px;flex-wrap:wrap;">
+          <div>
+            <div class="label label-accent">Writing since</div>
+            <div style="font-size:24px;font-weight:900;margin-top:4px;">2026</div>
+          </div>
+          <div>
+            <div class="label label-accent">Topics</div>
+            <div style="font-size:24px;font-weight:900;margin-top:4px;">Engineering, Design, Mindset</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-muted swiss-diagonal" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;">
+        <div class="label label-accent" style="margin-bottom:16px;">Read More</div>
+        <p style="font-size:14px;line-height:1.6;margin-bottom:32px;font-weight:400;">Every essay is free and public. Browse the full archive to find something worth your time.</p>
+        <a href="blog.html" class="btn btn-primary" style="width:100%;justify-content:center;">Browse All Essays →</a>
+        <div style="margin-top:24px;padding-top:24px;border-top:2px solid #000;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;opacity:.5;">
+          <a href="admin.html" style="color:inherit;transition:opacity .15s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">Admin →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-logo">AJ<span>.</span></div>
+        <p class="footer-desc">Essays on engineering, design, and building things that matter. Written by Aaditya Jain.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html">All Writing</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Topics</div>
+        <ul class="footer-links">
+          <li><a href="blog.html?tag=Engineering">Engineering</a></li>
+          <li><a href="blog.html?tag=Design">Design</a></li>
+          <li><a href="blog.html?tag=Mindset">Mindset</a></li>
+          <li><a href="blog.html?tag=AI">AI</a></li>
+          <li><a href="blog.html?tag=Building">Building</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aaditya Jain</span>
+      <span>All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

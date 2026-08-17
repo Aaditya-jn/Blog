@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <title>Admin — AJ Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=block" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ── Admin-specific ─────────────────────────────── */
+    .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px 120px; }
+    .admin-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0; border-bottom: 4px solid #000; margin-bottom: 48px; flex-wrap: wrap; gap: 16px;
+    }
+    .admin-topbar h1 { font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: -.03em; }
+    .admin-topbar-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Post list table */
+    .post-table { width: 100%; border: 4px solid #000; border-collapse: collapse; }
+    .post-table th, .post-table td { padding: 16px 20px; border-bottom: 2px solid #000; text-align: left; }
+    .post-table th { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; background: #000; color: #fff; }
+    .post-table tr:last-child td { border-bottom: none; }
+    .post-table tr:hover td { background: #F2F2F2; }
+    .post-table td { font-size: 14px; font-weight: 500; vertical-align: middle; }
+    .post-table .tag-pill { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; padding: 3px 8px; border: 2px solid #000; display: inline-block; margin-right: 4px; }
+    .post-table .featured-star { color: #FF3000; font-weight: 900; }
+    .post-actions { display: flex; gap: 8px; }
+
+    /* Form overlay */
+    .overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      z-index: 200; align-items: center; justify-content: center; padding: 24px;
+    }
+    .overlay.open { display: flex; }
+    .form-panel {
+      background: #fff; border: 4px solid #000; width: 100%; max-width: 780px;
+      max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .form-header {
+      padding: 24px 28px; border-bottom: 4px solid #000;
+      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: #fff; z-index: 10;
+    }
+    .form-header h2 { font-size: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; }
+    .form-body { padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: #FF3000; }
+    .form-group input, .form-group textarea, .form-group select {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+      border: 2px solid #000; padding: 12px 14px; background: #fff; outline: none;
+      transition: border-color .15s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: #FF3000; }
+    .form-group textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    .form-group textarea.content-area { min-height: 280px; font-family: 'Courier New', monospace; font-size: 13px; }
+    .form-group .hint { font-size: 11px; opacity: .5; font-weight: 400; }
+    .form-check { display: flex; align-items: center; gap: 10px; }
+    .form-check input[type=checkbox] { width: 18px; height: 18px; accent-color: #FF3000; cursor: pointer; }
+    .form-footer { padding: 20px 28px; border-top: 4px solid #000; display: flex; justify-content: flex-end; gap: 12px; position: sticky; bottom: 0; background: #fff; }
+
+    /* Login screen */
+    .login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #000; padding: 24px;
+    }
+    .login-box {
+      background: #fff; border: 4px solid #fff; width: 100%; max-width: 420px; padding: 48px;
+    }
+    .login-box h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -.04em; margin-bottom: 8px; }
+    .login-box p { font-size: 13px; opacity: .5; margin-bottom: 32px; }
+    .login-error { font-size: 12px; font-weight: 700; color: #FF3000; margin-top: 12px; display: none; }
+
+    /* Confirm dialog */
+    .confirm-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.8);
+      z-index: 300; align-items: center; justify-content: center; padding: 24px;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-box { background: #fff; border: 4px solid #000; padding: 40px; max-width: 420px; width: 100%; }
+    .confirm-box h3 { font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; margin-bottom: 12px; }
+    .confirm-box p { font-size: 14px; opacity: .7; margin-bottom: 28px; line-height: 1.6; }
+    .confirm-actions { display: flex; gap: 12px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px; z-index: 400;
+      padding: 16px 24px; background: #000; color: #fff;
+      font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      border: 2px solid #000; transform: translateY(80px); opacity: 0;
+      transition: transform .2s ease-out, opacity .2s ease-out;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #000; border-left: 4px solid #FF3000; }
+    .toast.error { background: #FF3000; color: #fff; }
+
+    @media(max-width:640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .admin-wrap { padding: 0 16px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Login Screen ───────────────────────────────────────────────── -->
+<div id="login-screen" class="login-screen">
+  <div class="login-box">
+    <h1>AJ<span style="color:#FF3000;">.</span></h1>
+    <p>Admin access only. Enter your password to continue.</p>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="Enter password" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') doLogin()"/>
+    </div>
+    <div class="login-error" id="login-error">Incorrect password. Try again.</div>
+    <button class="btn btn-primary" style="width:100%;margin-top:20px;" onclick="doLogin()">Enter Admin →</button>
+    <div style="margin-top:24px;padding-top:24px;border-top:2px solid #000;">
+      <a href="index.html" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;opacity:.4;transition:opacity .15s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.4">← Back to site</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Admin Panel ────────────────────────────────────────────────── -->
+<div id="admin-panel" style="display:none;">
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">AJ<span style="color:var(--accent);">.</span></a>
+        <ul class="nav-links">
+          <li><a href="index.html">← View Site</a></li>
+        </ul>
+        <button onclick="doLogout()" class="btn btn-secondary" style="height:64px;border-radius:0;border-top:none;border-bottom:none;border-right:none;font-size:11px;">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-wrap" style="padding-top:48px;">
+    <!-- Header -->
+    <div class="admin-topbar">
+      <div>
+        <span class="section-number" style="margin-bottom:8px;">Admin Panel</span>
+        <h1>Manage Posts</h1>
+      </div>
+      <div class="admin-topbar-actions">
+        <button class="btn btn-secondary" onclick="exportData()" style="font-size:11px;">Export data.js ↗</button>
+        <button class="btn btn-secondary" onclick="confirmReset()" style="font-size:11px;color:#FF3000;border-color:#FF3000;">Reset to Defaults</button>
+        <button class="btn btn-primary" onclick="openForm()" style="font-size:11px;">+ New Post</button>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div style="display:flex;gap:0;border:4px solid #000;margin-bottom:40px;">
+      <div style="padding:20px 32px;border-right:2px solid #000;flex:1;">
+        <div class="label label-accent">Total Posts</div>
+        <div id="stat-total" style="font-size:32px;font-weight:900;letter-spacing:-.04em;margin-top:4px;">0</div>
+      </div>
+      <div style="padding:20px 32px;border-right:2px solid #000;flex:1;">
+        <div class="label label-accent">Featured</div>
+        <div id="stat-featured" style="font-size:32px;font-weight:900;letter-spacing:-.04em;margin-top:4px;">0</div>
+      </div>
+      <div style="padding:20px 32px;flex:1;">
+        <div class="label label-accent">Topics</div>
+        <div id="stat-topics" style="font-size:32px;font-weight:900;letter-spacing:-.04em;margin-top:4px;">0</div>
+      </div>
+    </div>
+
+    <!-- Posts table -->
+    <div style="overflow-x:auto;">
+      <table class="post-table" id="posts-table">
+        <thead>
+          <tr>
+            <th style="width:40%;">Title</th>
+            <th>Date</th>
+            <th>Tags</th>
+            <th>Read</th>
+            <th style="text-align:center;">Featured</th>
+            <th style="text-align:right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="posts-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── Post Form Overlay ───────────────────────────────────────────── -->
+<div class="overlay" id="form-overlay">
+  <div class="form-panel">
+    <div class="form-header">
+      <h2 id="form-title">New Post</h2>
+      <button onclick="closeForm()" style="background:none;border:none;font-size:22px;cursor:pointer;font-weight:900;line-height:1;">✕</button>
+    </div>
+    <div class="form-body">
+      <input type="hidden" id="edit-slug"/>
+      <div class="form-row">
+        <div class="form-group" style="grid-column:1/-1;">
+          <label>Title *</label>
+          <input type="text" id="f-title" placeholder="Post title"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date *</label>
+          <input type="date" id="f-date"/>
+        </div>
+        <div class="form-group">
+          <label>Read Time</label>
+          <input type="text" id="f-readtime" placeholder="5 min"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tags * <span class="hint">(comma-separated)</span></label>
+        <input type="text" id="f-tags" placeholder="Engineering, Design, Mindset"/>
+      </div>
+      <div class="form-group">
+        <label>Excerpt *</label>
+        <textarea id="f-excerpt" rows="3" placeholder="One or two sentences about this post."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Content * <span class="hint">(HTML — use &lt;h2&gt;, &lt;p&gt;, &lt;blockquote&gt;, &lt;ul&gt;)</span></label>
+        <textarea id="f-content" class="content-area" placeholder="<p>Start writing...</p>&#10;<h2>Section Title</h2>&#10;<p>More content...</p>"></textarea>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="f-featured"/>
+        <label for="f-featured" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;">Mark as Featured Post</label>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="savePost()">Save Post →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Confirm Delete ─────────────────────────────────────────────── -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <h3>Delete Post?</h3>
+    <p id="confirm-msg">This action cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-accent" id="confirm-ok" style="background:#FF3000;">Delete →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Confirm Reset ──────────────────────────────────────────────── -->
+<div class="confirm-overlay" id="reset-overlay">
+  <div class="confirm-box">
+    <h3>Reset to Defaults?</h3>
+    <p>All changes made in the admin panel will be lost. The site will revert to the original posts from <code>data.js</code>.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary" onclick="document.getElementById('reset-overlay').classList.remove('open')">Cancel</button>
+      <button class="btn" onclick="doReset()" style="background:#FF3000;color:#fff;padding:0 24px;height:52px;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em;">Reset →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast ──────────────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script>
+  // ── Config ──────────────────────────────────────────────────────
+  const ADMIN_PASSWORD = 'aaditya2026'; // Change this to your preferred password
+  const SESSION_KEY = 'aj_admin_auth';
+
+  // ── Auth ────────────────────────────────────────────────────────
+  function doLogin() {
+    const pw = document.getElementById('login-password').value;
+    if (pw === ADMIN_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-panel').style.display = 'block';
+      renderTable();
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('login-password').value = '';
+      document.getElementById('login-password').focus();
+    }
+  }
+
+  function doLogout() {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  }
+
+  // Check session on load
+  window.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-panel').style.display = 'block';
+      renderTable();
+    }
+  });
+
+  // ── Table ───────────────────────────────────────────────────────
+  function renderTable() {
+    const tbody = document.getElementById('posts-tbody');
+    document.getElementById('stat-total').textContent = POSTS.length;
+    document.getElementById('stat-featured').textContent = POSTS.filter(p => p.featured).length;
+    const tags = new Set(); POSTS.forEach(p => p.tags.forEach(t => tags.add(t)));
+    document.getElementById('stat-topics').textContent = tags.size;
+
+    if (!POSTS.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:48px;opacity:.5;font-size:14px;">No posts yet. Click "+ New Post" to create one.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = POSTS.map(p => `
+      <tr>
+        <td>
+          <a href="post.html?slug=${p.slug}" target="_blank"
+             style="font-weight:700;font-size:14px;text-decoration:none;transition:color .15s;"
+             onmouseover="this.style.color='#FF3000'" onmouseout="this.style.color=''">
+            ${p.title}
+          </a>
+        </td>
+        <td style="font-size:13px;opacity:.7;white-space:nowrap;">${p.date}</td>
+        <td>${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</td>
+        <td style="font-size:13px;white-space:nowrap;">${p.readTime}</td>
+        <td style="text-align:center;">${p.featured ? '<span class="featured-star">★</span>' : '<span style="opacity:.2;">○</span>'}</td>
+        <td>
+          <div class="post-actions" style="justify-content:flex-end;">
+            <button class="btn btn-secondary" onclick="openForm('${p.slug}')"
+                    style="height:36px;font-size:10px;padding:0 14px;">Edit</button>
+            <button class="btn" onclick="confirmDelete('${p.slug}','${p.title.replace(/'/g,"&#39;")}')"
+                    style="height:36px;font-size:10px;padding:0 14px;background:#FF3000;color:#fff;border:none;">Delete</button>
+          </div>
+        </td>
+      </tr>`).join('');
+  }
+
+  // ── Form ────────────────────────────────────────────────────────
+  function openForm(slug) {
+    const overlay = document.getElementById('form-overlay');
+    document.getElementById('edit-slug').value = slug || '';
+    if (slug) {
+      const p = POSTS.find(x => x.slug === slug);
+      if (!p) return;
+      document.getElementById('form-title').textContent = 'Edit Post';
+      document.getElementById('f-title').value = p.title;
+      document.getElementById('f-date').value = p.dateISO;
+      document.getElementById('f-readtime').value = p.readTime;
+      document.getElementById('f-tags').value = p.tags.join(', ');
+      document.getElementById('f-excerpt').value = p.excerpt;
+      document.getElementById('f-content').value = p.content.trim();
+      document.getElementById('f-featured').checked = !!p.featured;
+    } else {
+      document.getElementById('form-title').textContent = 'New Post';
+      document.getElementById('f-title').value = '';
+      document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('f-readtime').value = '5 min';
+      document.getElementById('f-tags').value = '';
+      document.getElementById('f-excerpt').value = '';
+      document.getElementById('f-content').value = '';
+      document.getElementById('f-featured').checked = false;
+    }
+    overlay.classList.add('open');
+    document.getElementById('f-title').focus();
+  }
+
+  function closeForm() {
+    document.getElementById('form-overlay').classList.remove('open');
+  }
+
+  function savePost() {
+    const title = document.getElementById('f-title').value.trim();
+    const dateISO = document.getElementById('f-date').value;
+    const readTime = document.getElementById('f-readtime').value.trim() || '5 min';
+    const tagsRaw = document.getElementById('f-tags').value.trim();
+    const excerpt = document.getElementById('f-excerpt').value.trim();
+    const content = document.getElementById('f-content').value.trim();
+    const featured = document.getElementById('f-featured').checked;
+    const editSlug = document.getElementById('edit-slug').value;
+
+    if (!title || !dateISO || !tagsRaw || !excerpt || !content) {
+      showToast('Please fill in all required fields.', 'error'); return;
+    }
+
+    const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
+    const dateObj = new Date(dateISO);
+    const date = dateObj.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Unfeature others if this is featured
+    if (featured) POSTS.forEach(p => { p.featured = false; });
+
+    const data = { title, date, dateISO, tags, readTime, excerpt, content, featured };
+
+    if (editSlug) {
+      updatePost(editSlug, data);
+      showToast('Post updated successfully.', 'success');
+    } else {
+      createPost(data);
+      showToast('Post created successfully.', 'success');
+    }
+
+    closeForm();
+    renderTable();
+  }
+
+  // ── Delete ──────────────────────────────────────────────────────
+  let deleteSlug = null;
+  function confirmDelete(slug, title) {
+    deleteSlug = slug;
+    document.getElementById('confirm-msg').textContent = `"${title}" will be permanently deleted.`;
+    document.getElementById('confirm-overlay').classList.add('open');
+    document.getElementById('confirm-ok').onclick = () => {
+      deletePost(deleteSlug);
+      document.getElementById('confirm-overlay').classList.remove('open');
+      renderTable();
+      showToast('Post deleted.', 'success');
+    };
+  }
+  function closeConfirm() { document.getElementById('confirm-overlay').classList.remove('open'); }
+
+  // ── Reset ───────────────────────────────────────────────────────
+  function confirmReset() { document.getElementById('reset-overlay').classList.add('open'); }
+  function doReset() {
+    POSTS.length = 0;
+    resetToDefaults().forEach(p => POSTS.push(p));
+    savePosts(POSTS);
+    document.getElementById('reset-overlay').classList.remove('open');
+    renderTable();
+    showToast('Reset to default posts.', 'success');
+  }
+
+  // ── Export ──────────────────────────────────────────────────────
+  function exportData() {
+    const code = `// Auto-generated by AJ Blog Admin — ${new Date().toISOString()}\n// Replace the POSTS_DEFAULT array in js/data.js with this content.\n\nconst POSTS_DEFAULT = ${JSON.stringify(POSTS, null, 2)};`;
+    navigator.clipboard.writeText(code).then(() => {
+      showToast('data.js content copied to clipboard!', 'success');
+    }).catch(() => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Copied! Paste into js/data.js and redeploy.', 'success');
+    });
+  }
+
+  // ── Toast ───────────────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3000);
+  }
+
+  // Close form on overlay click
+  document.getElementById('form-overlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeForm();
+  });
+</script>
+</body>
+</html>

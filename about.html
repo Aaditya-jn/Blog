@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Aaditya Jain — builder, engineer, and writer." />
+  <title>About — AJ Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">AJ<span style="color:var(--accent);">.</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Writing</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────── -->
+<div class="container">
+  <div class="about-hero">
+    <div class="about-hero-left">
+      <div>
+        <span class="section-number">01. About</span>
+        <h1 style="font-size:clamp(64px,9vw,140px);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:.85;margin-bottom:48px;">
+          Aaditya<br /><span class="text-accent">Jain</span>
+        </h1>
+        <p style="font-size:18px;line-height:1.75;max-width:520px;margin-bottom:32px;">
+          I build software and write about the process. My interests sit at the intersection of engineering craft, design thinking, and the act of building things that last.
+        </p>
+        <p style="font-size:15px;line-height:1.7;max-width:520px;opacity:.7;">
+          This blog is where I work through ideas in public. Not tutorials, not hot takes — essays. Long-form thinking about problems worth thinking about.
+        </p>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;padding-top:40px;border-top:2px solid #000;">
+        <a href="blog.html" class="btn btn-primary">Read Writing →</a>
+      </div>
+    </div>
+    <div class="about-hero-right swiss-grid-pattern">
+      <!-- Swiss geometric composition -->
+      <div style="position:relative;width:300px;height:360px;">
+        <!-- Large black rect -->
+        <div style="position:absolute;inset:0;background:#000;"></div>
+        <!-- Accent square top-right -->
+        <div style="position:absolute;top:-16px;right:-16px;width:80px;height:80px;background:#FF3000;border:4px solid #000;"></div>
+        <!-- White initials block -->
+        <div style="position:absolute;bottom:32px;left:32px;right:32px;">
+          <div style="font-size:80px;font-weight:900;color:#fff;letter-spacing:-.06em;line-height:.85;">AJ</div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.25em;color:rgba(255,255,255,.4);margin-top:16px;">Aaditya Jain</div>
+          <div style="width:40px;height:4px;background:#FF3000;margin-top:12px;"></div>
+        </div>
+        <!-- Decorative grid overlay text -->
+        <div style="position:absolute;top:24px;right:24px;font-size:11px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.2em;writing-mode:vertical-rl;">Builder · Writer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Principles ─────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <span class="section-number">02. Principles</span>
+    <h2 class="section-title" style="margin-bottom:64px;">How I<br /><span class="text-accent">Think</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);border:4px solid #000;" class="principles-grid">
+      <div style="padding:40px;border-right:4px solid #000;">
+        <div style="font-size:48px;font-weight:900;color:var(--accent);letter-spacing:-0.04em;margin-bottom:16px;">01.</div>
+        <h3 style="font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.1;">Clarity over cleverness</h3>
+        <p style="font-size:14px;line-height:1.7;opacity:.75;font-weight:400;">The best solution is the one that is easiest to understand, not the one that is most impressive to write. Complexity should live in the problem, not the solution.</p>
+      </div>
+      <div style="padding:40px;border-right:4px solid #000;background:var(--muted);">
+        <div style="font-size:48px;font-weight:900;color:var(--accent);letter-spacing:-0.04em;margin-bottom:16px;">02.</div>
+        <h3 style="font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.1;">Concrete before abstract</h3>
+        <p style="font-size:14px;line-height:1.7;opacity:.75;font-weight:400;">Abstractions should be derived from understanding, not from anticipation. Build the concrete thing first. The right abstraction emerges from seeing the pattern, not imagining it.</p>
+      </div>
+      <div style="padding:40px;">
+        <div style="font-size:48px;font-weight:900;color:var(--accent);letter-spacing:-0.04em;margin-bottom:16px;">03.</div>
+        <h3 style="font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.1;">Build in public</h3>
+        <p style="font-size:14px;line-height:1.7;opacity:.75;font-weight:400;">Sharing unfinished work is the fastest path to understanding what you actually know versus what you think you know. Feedback is not a threat — it is the product.</p>
+      </div>
+    </div>
+    <style>@media(max-width:768px){.principles-grid{grid-template-columns:1fr !important;} .principles-grid>div{border-right:none !important;border-bottom:4px solid #000;} .principles-grid>div:last-child{border-bottom:none;}}</style>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── What I Write About ─────────────────────────────────────────── -->
+<section class="section" style="background:var(--fg);color:var(--bg);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;">
+      <div>
+        <span class="section-number" style="color:var(--accent);">03. Topics</span>
+        <h2 style="font-size:clamp(40px,5vw,72px);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:.87;">What<br />I<br />Write</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid rgba(255,255,255,.15);">
+        <div style="padding:32px;border-right:2px solid rgba(255,255,255,.15);border-bottom:2px solid rgba(255,255,255,.15);">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:12px;">Engineering</div>
+          <p style="font-size:14px;line-height:1.6;opacity:.7;font-weight:400;">Architecture decisions, code quality, abstraction, and the craft of building maintainable systems.</p>
+        </div>
+        <div style="padding:32px;border-bottom:2px solid rgba(255,255,255,.15);">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:12px;">Design</div>
+          <p style="font-size:14px;line-height:1.6;opacity:.7;font-weight:400;">UI/UX thinking, visual systems, clarity as a design principle, and the relationship between structure and expression.</p>
+        </div>
+        <div style="padding:32px;border-right:2px solid rgba(255,255,255,.15);">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:12px;">Mindset</div>
+          <p style="font-size:14px;line-height:1.6;opacity:.7;font-weight:400;">Learning systems, building in public, mental models, and the habits that separate good work from great work.</p>
+        </div>
+        <div style="padding:32px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:12px;">AI</div>
+          <p style="font-size:14px;line-height:1.6;opacity:.7;font-weight:400;">AI-assisted development, what changes and what does not, and the evolving role of engineering craft.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── CTA ────────────────────────────────────────────────────────── -->
+<section style="padding:80px 0;">
+  <div class="container" style="display:flex;flex-direction:column;align-items:flex-start;gap:32px;">
+    <span class="section-number">04. Start Reading</span>
+    <h2 style="font-size:clamp(48px,7vw,112px);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:.87;max-width:900px;">
+      Jump into<br/>the <span class="text-accent">writing</span>
+    </h2>
+    <a href="blog.html" class="btn btn-primary" style="height:64px;font-size:14px;padding:0 48px;">Browse All Essays →</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-logo">AJ<span>.</span></div>
+        <p class="footer-desc">Essays on engineering, design, and building things that matter. Written by Aaditya Jain.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html">All Writing</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Topics</div>
+        <ul class="footer-links">
+          <li><a href="blog.html?tag=Engineering">Engineering</a></li>
+          <li><a href="blog.html?tag=Design">Design</a></li>
+          <li><a href="blog.html?tag=Mindset">Mindset</a></li>
+          <li><a href="blog.html?tag=AI">AI</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aaditya Jain</span>
+      <span>All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
