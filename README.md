@@ -2,7 +2,7 @@
 
 Personal blog by **Aaditya Jain** — essays on engineering, design, AI, and building things that matter.
 
-**Live site:** [Deployed on Netlify]
+**Live site:** (https://blogsbyaadityajain.netlify.app/)
 
 ---
 
