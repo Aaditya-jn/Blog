@@ -117,7 +117,6 @@ function initBlog() {
 // ─── Post Reader ──────────────────────────────────────────────────────────────
 function initPost() {
   const container = document.getElementById('post-container');
-  const relatedEl = document.getElementById('related-posts');
   if (!container) return;
 
   const slug = new URLSearchParams(window.location.search).get('slug');
@@ -146,8 +145,6 @@ function initPost() {
         <a href="blog.html" class="btn btn-secondary">← All Posts</a>
       </div>
     </div>`;
-
-  if (relatedEl) relatedEl.innerHTML = getRecentPosts(3, slug).map(renderPostCard).join('');
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────

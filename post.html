@@ -46,40 +46,12 @@
   </div>
 </div>
 
-<!-- ── Post + Sidebar ─────────────────────────────────────────────── -->
+<!-- ── Post Content ──────────────────────────────────────────────── -->
 <div class="container">
-  <div class="two-col" style="border-top:none;">
-    <!-- Main Content -->
-    <div style="padding: 0 64px 96px 0;">
-      <div id="post-container" class="fade-in"></div>
-    </div>
-
-    <!-- Sidebar -->
-    <div class="sidebar swiss-dots" style="background:var(--muted);border-top:none;">
-      <div class="sidebar-section" style="position:sticky;top:80px;">
-        <div class="sidebar-title">More Writing</div>
-        <div id="related-posts" style="display:flex;flex-direction:column;gap:0;"></div>
-        <a href="blog.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:24px;">View All →</a>
-      </div>
-    </div>
+  <div style="max-width:760px;padding:0 0 96px;">
+    <div id="post-container" class="fade-in"></div>
   </div>
 </div>
-
-<!-- Sidebar post override styles -->
-<style>
-  #related-posts .post-card {
-    border-left: 4px solid #000;
-    border-right: none;
-    border-bottom: 2px solid #000;
-    border-top: none;
-  }
-  #related-posts .post-card:first-child { border-top: 2px solid #000; }
-  .post-card-title { font-size: 14px !important; }
-  .post-card-excerpt { display: none; }
-  @media (max-width:1024px) {
-    .two-col > div:first-child { padding-right: 0 !important; }
-  }
-</style>
 
 <div class="divider"></div>
 
